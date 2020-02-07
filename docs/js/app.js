@@ -2,8 +2,8 @@ const request = new XMLHttpRequest();
 const results = document.querySelector(".results");
 const loader = document.querySelector(".loading");
 
-let userAPIKEY = 'e404d856d55d8e5eb86955e2242939618199e291'
-let url =  `https://cors-anywhere.herokuapp.com/https://gateway.marvel.com/v1/public/characters/`
+let userAPIKEY = '9f1dfce0c33d520203276ccf628a6c26'
+let url =  `https://cors-anywhere.herokuapp.com/https://gateway.marvel.com:443/v1/public/characters`
 const params = `apikey=${userAPIKEY}`
 
 let token = '3212926708736175';
