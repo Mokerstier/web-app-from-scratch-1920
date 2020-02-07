@@ -18,15 +18,19 @@ main {
   padding:0 2rem;
 }
 header {
-  background: var(--course);
+  background-image: url(https://pm1.narvii.com/5816/d7ff4d38a7f87ddeb7490ce5a1a5552742c7ce8d_hq.jpg);
+  background-size: cover;
+  background-position-y: -10em;
   color: var(--dark);
   height: 30vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 0 1.5rem 0;
 }
 h1 {
   font-size: 7vw;
+  text-shadow: 2px 2px 10px rgba(252, 227, 0, 0.644);
 }
 h2 {
   font-size: 2em;
@@ -53,24 +57,16 @@ ul img {
 img {
   max-width: 100%;
 }
-section#lecturers ul { 
-  flex-wrap:wrap;
-  
+.results {
+  display: flex;
 }
-section#lecturers li {
-  width:45%;
-  text-align:center;
+.results div{
+  padding: 0 1.5rem 0;
 }
-section#lecturers li:nth-child(3) {
-  width:100%
-}
-section#lecturers img {
-  border-radius: 100%;
-  margin-right: 1em;
-  width:20vw;
-}
-section#lecturers a {
-  white-space:nowrap;
+.results img {
+  background-size: contain;
+  height: 6em;
+  width: 6em;
 }
 .button {
   background: var(--light);
@@ -81,7 +77,15 @@ section#lecturers a {
 .examples img {
   max-width: 25vh;
 }
+.loading {
+  position: absolute;
+  top: 49%;
+  left: 45%;
+}
 
+.hide {
+  display: none;
+}
 a,
 a:visited {
   color: var(--course);
