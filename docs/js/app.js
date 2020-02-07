@@ -16,7 +16,7 @@ const myHeros = [];
 let inputField = document.getElementById("userInput")
 
 fetch(`${url}?${params}`)
-
+    console.log("fetching")
     .then((response) => {
       console.log(response)
         return response.json();
