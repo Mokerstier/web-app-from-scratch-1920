@@ -1,8 +1,11 @@
 # Web App From Scratch @cmda-minor-web 1819
-Creating a superHero web app that displays Hero's and their abillity's all rendered client side! Using the superheroapi from https://superheroapi.com/
+Creating a superHero web app that displays Hero's and their abillity's all rendered client side! Using the Marvel-API from https://superheroapi.com/
 
-## Learning goals
-
+## Concept
+In this web-App users can assemble a team of superheros to their personal liking.
+ features i want to implement:
+ - Comparing Hero's
+ - Adding Hero's
 
 ## Program
 
