@@ -2,9 +2,9 @@ const request = new XMLHttpRequest();
 const results = document.querySelector(".results");
 const loader = document.querySelector(".loading");
 
-let userAPIKEY = '9f1dfce0c33d520203276ccf628a6c26'
-let url =  `https://cors-anywhere.herokuapp.com/https://gateway.marvel.com:443/v1/public/characters`
-const params = `apikey=${userAPIKEY}`
+let userAPIKEY = 'apikey=9f1dfce0c33d520203276ccf628a6c26'
+let url =  `https://cors-anywhere.herokuapp.com/https://gateway.marvel.com/v1/public/characters`
+const params = `?apikey=${userAPIKEY}`
 
 let token = '3212926708736175';
 // let url = `https://cors-anywhere.herokuapp.com/https://superheroapi.com/api/${token}/search/`;
@@ -14,24 +14,36 @@ let timeout = null;
 const myHeros = [];
 
 let inputField = document.getElementById("userInput")
+date = Date.now()
 
-fetch(`${url}?${params}`)
-    console.log("fetching")
-    .then((response) => {
-      console.log(response)
-        return response.json();
+fetch(`https://gateway.marvel.com/v1/public/characters?ts=1&apikey=9f1dfce0c33d520203276ccf628a6c26&hash=2fd0f873cbd9e3939118fe9560eead1a`)
+    .then((res) => {
+        return res.json()
     })
     .then((myJson) => {
-      loader.classList.toggle("hide")
-      heroApiData = myJson;
-      results.append(`${heroApiData} results found on your request`)
-      // while (results.firstChild) results.removeChild(results.firstChild);
-      // empties the results so when new request is done result won't stack
-      // heroApiData.results.forEach((hero, index) => {
-      //     addDataElement(hero, index);
-      // });
+        console.log(myJson.results)
+    })
+// fetch(`https://gateway.marvel.com/v1/public/characters?${userAPIKEY}`)
+    
+//     // loader.classList.toggle("hide")
+//     // console.log(response)
+//     .then((response) => {
+//         return response.json()
+//     })
+//     .then((response) => {
+//         console.log(response.data.results)
+//     })
+    // .then((myJson) => {
+    //   loader.classList.toggle("hide")
+    //   heroApiData = myJson;
+    //   results.append(`${heroApiData} results found on your request`)
+    //   // while (results.firstChild) results.removeChild(results.firstChild);
+    //   // empties the results so when new request is done result won't stack
+    //   // heroApiData.results.forEach((hero, index) => {
+    //   //     addDataElement(hero, index);
+    //   // });
 
-    }); 
+    // }); 
 
 // Als de user klaar is met typen haal de data op uit de API
 // function doneTyping (){
