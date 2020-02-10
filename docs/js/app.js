@@ -16,7 +16,10 @@ const myHeros = [];
 let inputField = document.getElementById("userInput")
 date = Date.now()
 
-fetch(`https://gateway.marvel.com/v1/public/characters?ts=1&apikey=9f1dfce0c33d520203276ccf628a6c26&hash=2fd0f873cbd9e3939118fe9560eead1a`)
+
+
+fetch(`https://gateway.marvel.com/v1/public/comics?apikey=dbab711d9dd31157460665c92e6ff4e3`)
+// https://gateway.marvel.com/v1/public/comics?apikey=9f1dfce0c33d520203276ccf628a6c26
     .then((res) => {
         return res.json()
     })
