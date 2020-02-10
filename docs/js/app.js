@@ -3,9 +3,9 @@ import { apiCall } from 'modules/marvelCall.js'
 const results = document.querySelector(".results")
 const loader = document.querySelector(".loading")
 
-let userAPIKEY = `9f1dfce0c33d520203276ccf628a6c26`
-let url =  `https://gateway.marvel.com/v1/public/characters`
-const params = `?apikey=${userAPIKEY}`
+// let userAPIKEY = `9f1dfce0c33d520203276ccf628a6c26`
+// let url =  `https://gateway.marvel.com/v1/public/characters`
+// const params = `?apikey=${userAPIKEY}`
 
 // let url = `https://cors-anywhere.herokuapp.com/https://superheroapi.com/api/${token}/search/`;
 let marvelApiData = {}
