@@ -19,16 +19,16 @@
       container.appendChild(heroImage);
       container.appendChild(addButton);
 
-      container.addEventListener("click", function (e){
-          const { target } = e
-          const dataKey = target.getAttribute('data-key')
+    //   container.addEventListener("click", function (e){
+    //       const { target } = e
+    //       const dataKey = target.getAttribute('data-key')
 
-          console.log(dataKey)
+    //       console.log(dataKey)
 
-          if (dataKey === key){
-              myHeros.push(hero)
-              console.log(myHeros)
-              localStorage.setItem('myHeros', JSON.stringify(hero));
-          }
-      }) 
+    //       if (dataKey === key){
+    //           myHeros.push(hero)
+    //           console.log(myHeros)
+    //           localStorage.setItem('myHeros', JSON.stringify(hero));
+    //       }
+    //   }) 
   }
