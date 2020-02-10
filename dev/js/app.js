@@ -22,10 +22,15 @@ if (localStorage.getItem('loadedHeros') === null){
         console.log(heroData.data)
         localStorage.setItem('loadedHeros', JSON.stringify(heroData))
         storedHeros.push(heroData)
-        heroData.data.forEach((hero, index) => {
+        heroData.data.results.forEach((hero, index) => {
                 addDataElement(hero, index)
-    })
-}
+        })   
+    }) 
+} else heroData = JSON.parse(localStorage.getItem('loadedHeros')).then(heroData => {
+    heroData.data.results.forEach((hero, index) => {
+        addDataElement(hero, index)
+}) 
+})
 
 // fetch(`${url}${params}`)
 //     .then((res) => {

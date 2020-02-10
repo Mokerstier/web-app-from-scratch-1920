@@ -14,42 +14,7 @@
     })
   }
 
-  // Create elements for the results
-    function addDataToElement(hero, index){
-        // Create add to Team button
-        const key = hero.name + index;
-        let addButton = document.createElement("button");
-        addButton.setAttribute('data-key', key);
-        addButton.innerText = `Add ${hero.name} to the team`;
-
-        let container = document.createElement("div");
-        // Create Hero nameTitle
-        let nameTitle = document.createElement("h3");
-        nameTitle.innerText = hero.name;
-        // Create Hero IMG
-        let heroImage = document.createElement("img");
-        heroImage.src =  hero.thumbnail.path;
-
-        results.appendChild(container);
-        container.appendChild(nameTitle);
-        container.appendChild(heroImage);
-        container.appendChild(addButton);
-
-        container.addEventListener("click", function (e){
-            const { target } = e;
-            const dataKey = target.getAttribute('data-key');
-
-            console.log(dataKey);
-
-            if (dataKey === key){
-                myHeros.push(hero);
-                console.log(myHeros);
-                localStorage.setItem('myHeros', JSON.stringify(hero));
-            }
-        }); 
-    }
-
-  const results$1 = document.querySelector(".results");
+  const results = document.querySelector(".results");
   const loader = document.querySelector(".loading");
 
   let inputField = document.getElementById("userInput");
@@ -57,11 +22,17 @@
   if (localStorage.getItem('loadedHeros') === null){
       apiCall().then(heroData => {
           console.log('this is the data: ');
-          console.log(heroData);
+          console.log(heroData.data);
           localStorage.setItem('loadedHeros', JSON.stringify(heroData));
-          addDataToElement(heroData);
-      });
-  }
+          heroData.data.results.forEach((hero, index) => {
+                  addDataElement(hero, index);
+          });   
+      }); 
+  } else heroData = JSON.parse(localStorage.getItem('loadedHeros')).then(heroData => {
+      heroData.data.results.forEach((hero, index) => {
+          addDataElement(hero, index);
+  }); 
+  });
 
   // fetch(`${url}${params}`)
   //     .then((res) => {
