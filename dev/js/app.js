@@ -1,4 +1,4 @@
-import { apiCall } from 'modules/marvelCall.js'
+import { apiCall } from './modules/marvelCall'
 
 const results = document.querySelector(".results")
 const loader = document.querySelector(".loading")

@@ -1,113 +1,128 @@
-(function (marvelCall_js) {
-    'use strict';
+(function () {
+  'use strict';
 
-    const results = document.querySelector(".results");
-    const loader = document.querySelector(".loading");
+  let userAPIKEY = `9f1dfce0c33d520203276ccf628a6c26`;
+  let url =  `https://gateway.marvel.com/v1/public/characters`;
+  const params = `?apikey=${userAPIKEY}`;
 
-    let inputField = document.getElementById("userInput");
-    date = Date.now();
+  function apiCall() {
+    fetch(`${url}${params}`)
+      .then((res) => {
+          console.log(res);
+          return res.json()
+      })
+      .then((myJson) => {
+          console.log(myJson.data.results);
+      });
+    }
 
-    marvelCall_js.apiCall().then(heroData => {
-        console.log('this is the data');
-        console.log(heroData);
-    });
-    // fetch(`${url}${params}`)
-    //     .then((res) => {
-    //         console.log(res)
-    //         return res.json()
-    //     })
-    //     .then((myJson) => {
-    //         console.log(myJson.data.results)
-    //     })
-    // fetch(`https://gateway.marvel.com/v1/public/characters?${userAPIKEY}`)
-        
-    //     // loader.classList.toggle("hide")
-    //     // console.log(response)
-    //     .then((response) => {
-    //         return response.json()
-    //     })
-    //     .then((response) => {
-    //         console.log(response.data.results)
-    //     })
-        // .then((myJson) => {
-        //   loader.classList.toggle("hide")
-        //   heroApiData = myJson;
-        //   results.append(`${heroApiData} results found on your request`)
-        //   // while (results.firstChild) results.removeChild(results.firstChild);
-        //   // empties the results so when new request is done result won't stack
-        //   // heroApiData.results.forEach((hero, index) => {
-        //   //     addDataElement(hero, index);
-        //   // });
+  const results = document.querySelector(".results");
+  const loader = document.querySelector(".loading");
 
-        // }); 
+  let inputField = document.getElementById("userInput");
+  date = Date.now();
 
-    // Als de user klaar is met typen haal de data op uit de API
-    // function doneTyping (){
-    //     userInput = inputField.value;
-    //     loader.classList.toggle("hide");
-    //     fetch(url+userInput)
+  apiCall().then(heroData => {
+      console.log('this is the data');
+      console.log(heroData);
+  });
+  // fetch(`${url}${params}`)
+  //     .then((res) => {
+  //         console.log(res)
+  //         return res.json()
+  //     })
+  //     .then((myJson) => {
+  //         console.log(myJson.data.results)
+  //     })
+  // fetch(`https://gateway.marvel.com/v1/public/characters?${userAPIKEY}`)
+      
+  //     // loader.classList.toggle("hide")
+  //     // console.log(response)
+  //     .then((response) => {
+  //         return response.json()
+  //     })
+  //     .then((response) => {
+  //         console.log(response.data.results)
+  //     })
+      // .then((myJson) => {
+      //   loader.classList.toggle("hide")
+      //   heroApiData = myJson;
+      //   results.append(`${heroApiData} results found on your request`)
+      //   // while (results.firstChild) results.removeChild(results.firstChild);
+      //   // empties the results so when new request is done result won't stack
+      //   // heroApiData.results.forEach((hero, index) => {
+      //   //     addDataElement(hero, index);
+      //   // });
 
-    //     .then((response) => {
-    //       return response.json();
-    //     })
-    //     .then((myJson) => {
-    //       loader.classList.toggle("hide")
-    //       heroApiData = myJson;
-    //       results.append(`${heroApiData.results.length} results found on your request`)
-    //       while (results.firstChild) results.removeChild(results.firstChild);
-    //       // empties the results so when new request is done result won't stack
-    //       heroApiData.results.forEach((hero, index) => {
-    //           addDataElement(hero, index);
-    //       });
+      // }); 
 
-    //     }); 
-    // }
+  // Als de user klaar is met typen haal de data op uit de API
+  // function doneTyping (){
+  //     userInput = inputField.value;
+  //     loader.classList.toggle("hide");
+  //     fetch(url+userInput)
 
-    // // Create elements for the results
-    // function addDataElement(hero, index){
-    //     // Create add to Team button
-    //     const key = hero.name + index
+  //     .then((response) => {
+  //       return response.json();
+  //     })
+  //     .then((myJson) => {
+  //       loader.classList.toggle("hide")
+  //       heroApiData = myJson;
+  //       results.append(`${heroApiData.results.length} results found on your request`)
+  //       while (results.firstChild) results.removeChild(results.firstChild);
+  //       // empties the results so when new request is done result won't stack
+  //       heroApiData.results.forEach((hero, index) => {
+  //           addDataElement(hero, index);
+  //       });
 
-    //     let addButton = document.createElement("button");
-    //     addButton.setAttribute('data-key', key)
-    //     addButton.innerText = `Add ${hero.name} to the team`;
+  //     }); 
+  // }
 
-    //     let container = document.createElement("div");
-    //     // Create Hero nameTitle
-    //     let nameTitle = document.createElement("h3");
-    //     nameTitle.innerText = hero.name;
-    //     // Create Hero IMG
-    //     let heroImage = document.createElement("img");
-    //     heroImage.src =  hero.image.url;
+  // // Create elements for the results
+  // function addDataElement(hero, index){
+  //     // Create add to Team button
+  //     const key = hero.name + index
 
-    //     results.appendChild(container);
-    //     container.appendChild(nameTitle);
-    //     container.appendChild(heroImage);
-    //     container.appendChild(addButton);
+  //     let addButton = document.createElement("button");
+  //     addButton.setAttribute('data-key', key)
+  //     addButton.innerText = `Add ${hero.name} to the team`;
 
-    //     container.addEventListener("click", function (e){
-    //         const { target } = e
-    //         const dataKey = target.getAttribute('data-key')
+  //     let container = document.createElement("div");
+  //     // Create Hero nameTitle
+  //     let nameTitle = document.createElement("h3");
+  //     nameTitle.innerText = hero.name;
+  //     // Create Hero IMG
+  //     let heroImage = document.createElement("img");
+  //     heroImage.src =  hero.image.url;
 
-    //         console.log(dataKey)
+  //     results.appendChild(container);
+  //     container.appendChild(nameTitle);
+  //     container.appendChild(heroImage);
+  //     container.appendChild(addButton);
 
-    //         if (dataKey === key){
-    //             myHeros.push(hero)
-    //             console.log(myHeros)
-    //             localStorage.setItem('myHeros', JSON.stringify(hero));
-    //         }
-    //     }) 
-    // }
+  //     container.addEventListener("click", function (e){
+  //         const { target } = e
+  //         const dataKey = target.getAttribute('data-key')
 
-    // inputField.addEventListener("keyup", function(e) {
-    //     // Gebruik een setTimeout om delay te creeeren zodat de API call pas gemaakt wordt als de gebruiker 1 sec niet meer typt.
-    //     clearTimeout(timeout);
+  //         console.log(dataKey)
 
-    //     // Make a new timeout set to go off in 1000ms (1 second)
-    //     timeout = setTimeout(function () {
-    //         console.log('Input Value:', inputField.value);
-    //         doneTyping();
-    //     }, 1000);
-    // })
+  //         if (dataKey === key){
+  //             myHeros.push(hero)
+  //             console.log(myHeros)
+  //             localStorage.setItem('myHeros', JSON.stringify(hero));
+  //         }
+  //     }) 
+  // }
 
-}(marvelCall_js));
+  // inputField.addEventListener("keyup", function(e) {
+  //     // Gebruik een setTimeout om delay te creeeren zodat de API call pas gemaakt wordt als de gebruiker 1 sec niet meer typt.
+  //     clearTimeout(timeout);
+
+  //     // Make a new timeout set to go off in 1000ms (1 second)
+  //     timeout = setTimeout(function () {
+  //         console.log('Input Value:', inputField.value);
+  //         doneTyping();
+  //     }, 1000);
+  // })
+
+}());
