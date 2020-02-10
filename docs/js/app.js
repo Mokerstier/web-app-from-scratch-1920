@@ -1,20 +1,19 @@
-(function () {
+(function (dns) {
   'use strict';
 
-  let userAPIKEY = `9f1dfce0c33d520203276ccf628a6c26`;
-  let url =  `https://gateway.marvel.com/v1/public/characters`;
+  const userAPIKEY = `9f1dfce0c33d520203276ccf628a6c26`;
+  const url =  `https://gateway.marvel.com/v1/public/characters`;
   const params = `?apikey=${userAPIKEY}`;
 
   function apiCall() {
-    fetch(`${url}${params}`)
+    return new Promise((resolve, reject) => {
+      fetch(`${url}${params}`)
       .then((res) => {
           console.log(res);
-          return res.json()
-      })
-      .then((myJson) => {
-          console.log(myJson.data.results);
+          resolve(res.json());
       });
-    }
+    })
+  }
 
   const results = document.querySelector(".results");
   const loader = document.querySelector(".loading");
@@ -125,4 +124,4 @@
   //     }, 1000);
   // })
 
-}());
+}(dns));
