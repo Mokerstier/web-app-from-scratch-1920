@@ -23,12 +23,12 @@ if (localStorage.getItem('loadedHeros') === null){
         localStorage.setItem('loadedHeros', JSON.stringify(heroData))
         storedHeros.push(heroData)
         heroData.data.results.forEach((hero, index) => {
-                addDataElement(hero, index)
+                addDataToElement(hero, index)
         })   
     }) 
 } else heroData = JSON.parse(localStorage.getItem('loadedHeros')).then(heroData => {
     heroData.data.results.forEach((hero, index) => {
-        addDataElement(hero, index)
+        addDataToElement(hero, index)
 }) 
 })
 
