@@ -1,4 +1,4 @@
-(function (dns) {
+(function () {
   'use strict';
 
   const userAPIKEY = `9f1dfce0c33d520203276ccf628a6c26`;
@@ -124,4 +124,4 @@
   //     }, 1000);
   // })
 
-}(dns));
+}());
