@@ -56,7 +56,8 @@
 
   if (localStorage.getItem('loadedHeros') === null){
       apiCall().then(heroData => {
-          console.log('this is the data: '+heroData);
+          console.log('this is the data: ');
+          console.log(heroData);
           localStorage.setItem('loadedHeros', JSON.stringify(heroData));
           addDataToElement(heroData);
       });

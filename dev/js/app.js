@@ -18,10 +18,12 @@ let inputField = document.getElementById("userInput")
 
 if (localStorage.getItem('loadedHeros') === null){
     apiCall().then(heroData => {
-        console.log('this is the data: '+heroData)
-        localStorage.setItem('loadedHeros', JSON.stringify(heroData));
+        console.log('this is the data: ')
+        console.log(heroData)
+        localStorage.setItem('loadedHeros', JSON.stringify(heroData))
         storedHeros.push(heroData)
-        addDataToElement(heroData)
+        heroData.forEach((hero, index) => {
+                addDataElement(hero, index)
     })
 }
 
