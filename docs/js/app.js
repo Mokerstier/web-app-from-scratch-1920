@@ -54,11 +54,13 @@
 
   let inputField = document.getElementById("userInput");
 
-
-  apiCall().then(heroData => {
-      console.log('this is the data: '+heroData);
-  });
-  addDataToElement(heroData);
+  if (localStorage.getItem('loadedHeros') === null){
+      apiCall().then(heroData => {
+          console.log('this is the data: '+heroData);
+          localStorage.setItem('loadedHeros', JSON.stringify(heroData));
+          addDataToElement(heroData);
+      });
+  }
 
   // fetch(`${url}${params}`)
   //     .then((res) => {
