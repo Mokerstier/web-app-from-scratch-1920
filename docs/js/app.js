@@ -16,7 +16,7 @@ let inputField = document.getElementById("userInput")
 date = Date.now()
 
 
-fetch(`${url}+${params}`)
+fetch(`${url}${params}`)
     .then((res) => {
         console.log(res)
         return res.json()
