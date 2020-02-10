@@ -2,7 +2,7 @@
 const results = document.querySelector(".results")
 const loader = document.querySelector(".loading")
 
-let userAPIKEY = secrets.Public_API_KEY
+let userAPIKEY = `9f1dfce0c33d520203276ccf628a6c26`
 let url =  `https://gateway.marvel.com/v1/public/characters`
 const params = `?apikey=${userAPIKEY}`
 
@@ -14,7 +14,6 @@ const myHeros = []
 
 let inputField = document.getElementById("userInput")
 date = Date.now()
-
 
 
 fetch(`${url}+${params}`)
