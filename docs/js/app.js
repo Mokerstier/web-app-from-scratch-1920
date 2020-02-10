@@ -2,7 +2,7 @@
 const results = document.querySelector(".results")
 const loader = document.querySelector(".loading")
 
-let userAPIKEY = Public_API_KEY
+let userAPIKEY = secrets.Public_API_KEY
 let url =  `https://gateway.marvel.com/v1/public/characters`
 const params = `?apikey=${userAPIKEY}`
 
@@ -23,7 +23,7 @@ fetch(`${url}+${params}`)
         return res.json()
     })
     .then((myJson) => {
-        console.log(myJson.data)
+        console.log(myJson.data.results)
     })
 // fetch(`https://gateway.marvel.com/v1/public/characters?${userAPIKEY}`)
     
