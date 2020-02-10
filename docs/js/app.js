@@ -20,7 +20,7 @@
   const loader = document.querySelector(".loading");
 
   let inputField = document.getElementById("userInput");
-  date = Date.now();
+
 
   apiCall().then(heroData => {
       console.log('this is the data');
