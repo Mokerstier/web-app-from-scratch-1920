@@ -29,7 +29,7 @@
         nameTitle.innerText = hero.name;
         // Create Hero IMG
         let heroImage = document.createElement("img");
-        heroImage.src =  heroThumb.path+heroThumb.extension;
+        heroImage.src =  `${heroThumb.path}.${heroThumb.extension}`;
 
         
         container.appendChild(nameTitle);
