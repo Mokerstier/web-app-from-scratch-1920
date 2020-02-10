@@ -15,7 +15,7 @@
   }
 
   // Create elements for the results
-    function addDataToElement(hero, index){
+    function addDataToElement(hero, index, element){
         // Create add to Team button
         const key = hero.name + index;
         let addButton = document.createElement("button");
@@ -30,10 +30,11 @@
         let heroImage = document.createElement("img");
         heroImage.src =  hero.thumbnail.path;
 
-        results.appendChild(container);
+        
         container.appendChild(nameTitle);
         container.appendChild(heroImage);
         container.appendChild(addButton);
+        element.appendChild(container);
 
       //   container.addEventListener("click", function (e){
       //       const { target } = e
@@ -49,7 +50,7 @@
       //   }) 
     }
 
-  const results$1 = document.querySelector(".results");
+  const results = document.querySelector(".results");
   const loader = document.querySelector(".loading");
 
   let inputField = document.getElementById("userInput");
@@ -60,12 +61,12 @@
           console.log(heroData.data);
           localStorage.setItem('loadedHeros', JSON.stringify(heroData));
           heroData.data.results.forEach((hero, index) => {
-                  addDataToElement(hero, index);
+                  addDataToElement(hero, index,results);
           });   
       }); 
   } else heroData = JSON.parse(localStorage.getItem('loadedHeros')).then(heroData => {
       heroData.data.results.forEach((hero, index) => {
-          addDataToElement(hero, index);
+          addDataToElement(hero, index, results);
   }); 
   });
 

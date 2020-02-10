@@ -1,5 +1,6 @@
- // Create elements for the results
-  export function addDataToElement(hero, index){
+
+// Create elements for the results
+  export function addDataToElement(hero, index, element){
       // Create add to Team button
       const key = hero.name + index
       let addButton = document.createElement("button");
@@ -14,10 +15,11 @@
       let heroImage = document.createElement("img");
       heroImage.src =  hero.thumbnail.path;
 
-      results.appendChild(container);
+      
       container.appendChild(nameTitle);
       container.appendChild(heroImage);
       container.appendChild(addButton);
+      element.appendChild(container);
 
     //   container.addEventListener("click", function (e){
     //       const { target } = e
