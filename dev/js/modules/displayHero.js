@@ -3,6 +3,7 @@
   export function addDataToElement(hero, index, element){
       // Create add to Team button
       const key = hero.name + index
+      let heroThumb = hero.thumbnail
       let addButton = document.createElement("button");
       addButton.setAttribute('data-key', key)
       addButton.innerText = `Add ${hero.name} to the team`;
@@ -13,7 +14,7 @@
       nameTitle.innerText = hero.name;
       // Create Hero IMG
       let heroImage = document.createElement("img");
-      heroImage.src =  hero.thumbnail.path;
+      heroImage.src =  heroThumb.path+heroThumb.extension;
 
       
       container.appendChild(nameTitle);
