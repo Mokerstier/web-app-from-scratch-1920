@@ -1,9 +1,8 @@
-require('dotenv').config()
 
 const results = document.querySelector(".results")
 const loader = document.querySelector(".loading")
 
-let userAPIKEY = process.env.Public_API_KEY
+let userAPIKEY = Public_API_KEY
 let url =  `https://gateway.marvel.com/v1/public/characters`
 const params = `?apikey=${userAPIKEY}`
 
