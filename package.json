@@ -1,0 +1,31 @@
+{
+  "name": "web-app-from-scratch-1920",
+  "version": "1.0.0",
+  "description": "Creating a superHero web app that displays Hero's and their abillity's all rendered client side! Using the Marvel-API from https://gateway.marvel.com",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "dependencies": {
+    "dotenv": "^8.2.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^11.0.2",
+    "@rollup/plugin-node-resolve": "^7.1.1",
+    "rollup": "^1.31.0"
+  },
+  "scripts": {
+    "start": "rollup -cw"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mokerstier/web-app-from-scratch-1920.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mokerstier/web-app-from-scratch-1920/issues"
+  },
+  "homepage": "https://github.com/Mokerstier/web-app-from-scratch-1920#readme"
+}
