@@ -1,4 +1,5 @@
 import { apiCall } from './modules/marvelCall'
+import { addDataToElement } from './modules/displayHero'
 
 const results = document.querySelector(".results")
 const loader = document.querySelector(".loading")
@@ -11,15 +12,17 @@ const loader = document.querySelector(".loading")
 let marvelApiData = {}
 let timeout = null
 
-const myHeros = []
+const storedHeros = []
 
 let inputField = document.getElementById("userInput")
 
 
 apiCall().then(heroData => {
-    console.log('this is the data')
-    console.log(heroData)
+    console.log('this is the data: '+heroData)
+    storedHeros.push(heroData)
 })
+addDataToElement(heroData)
+
 // fetch(`${url}${params}`)
 //     .then((res) => {
 //         console.log(res)

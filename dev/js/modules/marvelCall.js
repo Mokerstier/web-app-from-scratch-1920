@@ -6,7 +6,6 @@ export function apiCall() {
   return new Promise((resolve, reject) => {
     fetch(`${url}${params}`)
     .then((res) => {
-        console.log(res)
         resolve(res.json())
     })
   })
