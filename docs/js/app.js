@@ -1,3 +1,4 @@
+import { apiCall } from 'modules/marvelCall.js'
 
 const results = document.querySelector(".results")
 const loader = document.querySelector(".loading")
@@ -15,15 +16,18 @@ const myHeros = []
 let inputField = document.getElementById("userInput")
 date = Date.now()
 
-
-fetch(`${url}${params}`)
-    .then((res) => {
-        console.log(res)
-        return res.json()
-    })
-    .then((myJson) => {
-        console.log(myJson.data.results)
-    })
+apiCall().then(heroData => {
+    console.log('this is the data')
+    console.log(heroData)
+})
+// fetch(`${url}${params}`)
+//     .then((res) => {
+//         console.log(res)
+//         return res.json()
+//     })
+//     .then((myJson) => {
+//         console.log(myJson.data.results)
+//     })
 // fetch(`https://gateway.marvel.com/v1/public/characters?${userAPIKEY}`)
     
 //     // loader.classList.toggle("hide")
