@@ -1,30 +1,30 @@
-const request = new XMLHttpRequest();
-const results = document.querySelector(".results");
-const loader = document.querySelector(".loading");
+require('dotenv').config()
 
-let userAPIKEY = 'apikey=9f1dfce0c33d520203276ccf628a6c26'
-let url =  `https://cors-anywhere.herokuapp.com/https://gateway.marvel.com/v1/public/characters`
+const results = document.querySelector(".results")
+const loader = document.querySelector(".loading")
+
+let userAPIKEY = process.env.Public_API_KEY
+let url =  `https://gateway.marvel.com/v1/public/characters`
 const params = `?apikey=${userAPIKEY}`
 
-let token = '3212926708736175';
 // let url = `https://cors-anywhere.herokuapp.com/https://superheroapi.com/api/${token}/search/`;
-let heroApiData = {}
-let timeout = null;
+let marvelApiData = {}
+let timeout = null
 
-const myHeros = [];
+const myHeros = []
 
 let inputField = document.getElementById("userInput")
 date = Date.now()
 
 
 
-fetch(`https://gateway.marvel.com/v1/public/comics?apikey=dbab711d9dd31157460665c92e6ff4e3`)
-// https://gateway.marvel.com/v1/public/comics?apikey=9f1dfce0c33d520203276ccf628a6c26
+fetch(`${url}+${params}`)
     .then((res) => {
+        console.log(res)
         return res.json()
     })
     .then((myJson) => {
-        console.log(myJson.results)
+        console.log(myJson.data)
     })
 // fetch(`https://gateway.marvel.com/v1/public/characters?${userAPIKEY}`)
     
