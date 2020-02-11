@@ -59,6 +59,7 @@ img {
 }
 .results {
   display: flex;
+  
 }
 .results div{
   padding: 0 1.5rem 0;

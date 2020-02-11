@@ -16,7 +16,6 @@
       let heroImage = document.createElement("img");
       heroImage.src =  `${heroThumb.path}.${heroThumb.extension}`;
 
-      
       container.appendChild(nameTitle);
       container.appendChild(heroImage);
       container.appendChild(addButton);

@@ -21,14 +21,14 @@ In this web-App users can assemble a team of superheros to their personal liking
     - Routing to detail or personal pages
  3
 
-### Week 1 - Hello API 🐒
-- Looking for a fun API for my project
-- Starting A Api Request
+### API information 🐒
+- Get a key!
+    You can aquire a API key from marvel if you navigate to https://developer.marvel.com/account
+- Key restrictions
+    - Rate limits are set to 3000 requests a day
+- Attribution
+    - Every page within the app or web pages that display data from the API must add the following text: "Data provided by Marvel. © 2014 Marvel"
 
-### Week 2 - Design and Refactor 🛠
-
-
-### Week 3 - Wrapping up 🎁
 
 
 <!-- Add a link to your live demo in Github Pages 🌐-->
