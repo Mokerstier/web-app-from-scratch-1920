@@ -18,18 +18,18 @@ const storedHeros = []
 
 let inputField = document.getElementById("userInput")
 
-if (localStorage.getItem('loadedHeros') === null){
+if (localStorage.getItem('page1') === null){
     apiCall().then(heroData => {
         console.log('this is the data: ')
         console.log(heroData.data)
-        localStorage.setItem('loadedHeros', JSON.stringify(heroData))
+        localStorage.setItem('page1', JSON.stringify(heroData.data.results))
         storedHeros.push(heroData)
         heroData.data.results.forEach((hero, index) => {
                 addDataToElement(hero, index,results)
         })   
     }) 
-} else heroData = JSON.parse(localStorage.getItem('loadedHeros')).then(heroData => {
-    heroData.data.results.forEach((hero, index) => {
+} else heroData = JSON.parse(localStorage.getItem('page1')).then(heroData => {
+    heroData.forEach((hero, index) => {
         addDataToElement(hero, index, results)
 }) 
 })
