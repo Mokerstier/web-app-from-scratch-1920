@@ -1,8 +1,10 @@
 import { apiCall } from './modules/marvelCall'
 import { addDataToElement } from './modules/displayHero'
+import { loadMore } from './modules/marvelCall'
 
 const results = document.querySelector(".results")
 const loader = document.querySelector(".loading")
+const loadMoreButton = document.querySelector('loadmore')
 
 // let userAPIKEY = `9f1dfce0c33d520203276ccf628a6c26`
 // let url =  `https://gateway.marvel.com/v1/public/characters`
@@ -31,7 +33,11 @@ if (localStorage.getItem('loadedHeros') === null){
         addDataToElement(hero, index, results)
 }) 
 })
-
+loadMoreButton.addEventListener('click', loadMore().then(heroData =>{
+    heroData.data.results.forEach((hero, index) => {
+        addDataToElement(hero, index,results)
+})   
+}))
 // fetch(`${url}${params}`)
 //     .then((res) => {
 //         console.log(res)
