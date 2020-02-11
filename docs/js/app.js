@@ -2,12 +2,22 @@
   'use strict';
 
   const userAPIKEY = `9f1dfce0c33d520203276ccf628a6c26`;
-  const url =  `https://gateway.marvel.com/v1/public/characters`;
-  const params = `?apikey=${userAPIKEY}`;
+  const url =  `https://gateway.marvel.com/v1/public/characters?`;
+  const params = `apikey=${userAPIKEY}`;
+
 
   function apiCall() {
     return new Promise((resolve, reject) => {
       fetch(`${url}${params}`)
+      .then((res) => {
+          resolve(res.json());
+      });
+    })
+  }
+  function loadMore(){
+    console.log('hello');
+    return new Promise((resolve, reject) => {
+      fetch(`${url}${loadMoreHeros}&${params}`)
       .then((res) => {
           resolve(res.json());
       });
@@ -24,6 +34,7 @@
         addButton.innerText = `Add ${hero.name} to the team`;
 
         let container = document.createElement("div");
+        
         // Create Hero nameTitle
         let nameTitle = document.createElement("h3");
         nameTitle.innerText = hero.name;
@@ -52,6 +63,7 @@
 
   const results = document.querySelector(".results");
   const loader = document.querySelector(".loading");
+  const loadMoreButton = document.querySelector('loadmore');
 
   let inputField = document.getElementById("userInput");
 
@@ -69,7 +81,11 @@
           addDataToElement(hero, index, results);
   }); 
   });
-
+  loadMoreButton.addEventListener('click', loadMore().then(heroData =>{
+      heroData.data.results.forEach((hero, index) => {
+          addDataToElement(hero, index,results);
+  });   
+  }));
   // fetch(`${url}${params}`)
   //     .then((res) => {
   //         console.log(res)

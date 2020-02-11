@@ -9,6 +9,7 @@
       addButton.innerText = `Add ${hero.name} to the team`;
 
       let container = document.createElement("div");
+      
       // Create Hero nameTitle
       let nameTitle = document.createElement("h3");
       nameTitle.innerText = hero.name;
