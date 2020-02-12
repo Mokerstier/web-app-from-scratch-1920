@@ -4,6 +4,7 @@
   const userAPIKEY = `9f1dfce0c33d520203276ccf628a6c26`;
   const url =  `https://gateway.marvel.com/v1/public/characters?`;
   const params = `apikey=${userAPIKEY}`;
+  let offsetVal = 0;
 
 
   function apiCall() {
@@ -15,9 +16,9 @@
     })
   }
   function loadMore(){
-    console.log('hello');
+    offsetVal+=20;
     return new Promise((resolve, reject) => {
-      fetch(`${url}${loadMoreHeros}&${params}`)
+      fetch(`${url}offset=${offsetVal}&${params}`)
       .then((res) => {
           resolve(res.json());
       });
@@ -28,13 +29,16 @@
     function addDataToElement(hero, index, element){
         // Create add to Team button
         const key = hero.name + index;
+        let heroLink = document.createElement("a");
+        heroLink.href = `#${hero.id}`;
         let heroThumb = hero.thumbnail;
         let addButton = document.createElement("button");
+        addButton.classList.add('block');
         addButton.setAttribute('data-key', key);
         addButton.innerText = `Add ${hero.name} to the team`;
 
         let container = document.createElement("div");
-        
+
         // Create Hero nameTitle
         let nameTitle = document.createElement("h3");
         nameTitle.innerText = hero.name;
@@ -45,7 +49,8 @@
         container.appendChild(nameTitle);
         container.appendChild(heroImage);
         container.appendChild(addButton);
-        element.appendChild(container);
+        heroLink.appendChild(container);
+        element.appendChild(heroLink);
 
       //   container.addEventListener("click", function (e){
       //       const { target } = e
@@ -63,29 +68,35 @@
 
   const results = document.querySelector(".results");
   const loader = document.querySelector(".loading");
-  const loadMoreButton = document.querySelector('loadmore');
+  const loadMoreButton = document.querySelector('.loadmore');
+  const link = document.querySelectorAll("a");
 
   let inputField = document.getElementById("userInput");
-
-  if (localStorage.getItem('page1') === null){
+  //if (localStorage.getItem('page1') === null){
       apiCall().then(heroData => {
-          console.log('this is the data: ');
-          console.log(heroData.data);
           localStorage.setItem('page1', JSON.stringify(heroData.data.results));
           heroData.data.results.forEach((hero, index) => {
                   addDataToElement(hero, index,results);
           });   
       }); 
-  } else heroData = JSON.parse(localStorage.getItem('page1')).then(heroData => {
-      heroData.forEach((hero, index) => {
-          addDataToElement(hero, index, results);
-  }); 
+  // } else heroData1 = JSON.parse(localStorage.getItem('page1'))
+      // console.log(heroData1)
+  // .then(heroData => {
+  //     heroData.forEach((hero, index) => {
+  //         addDataToElement(hero, index, results)
+  // }) 
+  //}
+  link.addEventListener('click', (e) => {
+      e.preventDefault();
   });
-  loadMoreButton.addEventListener('click', loadMore().then(heroData =>{
+  loadMoreButton.addEventListener('click', () => {
+      loadMore().then(heroData =>{
+      console.log(heroData.data);
       heroData.data.results.forEach((hero, index) => {
           addDataToElement(hero, index,results);
-  });   
-  }));
+          });
+      });   
+  });
   // fetch(`${url}${params}`)
   //     .then((res) => {
   //         console.log(res)

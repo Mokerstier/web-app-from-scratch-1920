@@ -1,6 +1,7 @@
 const userAPIKEY = `9f1dfce0c33d520203276ccf628a6c26`
 const url =  `https://gateway.marvel.com/v1/public/characters?`
 const params = `apikey=${userAPIKEY}`
+let offsetVal = 0;
 
 
 export function apiCall() {
@@ -12,9 +13,9 @@ export function apiCall() {
   })
 }
 export function loadMore(){
-  console.log('hello')
+  offsetVal+=20
   return new Promise((resolve, reject) => {
-    fetch(`${url}${loadMoreHeros}&${params}`)
+    fetch(`${url}offset=${offsetVal}&${params}`)
     .then((res) => {
         resolve(res.json())
     })

@@ -4,7 +4,8 @@ import { loadMore } from './modules/marvelCall'
 
 const results = document.querySelector(".results")
 const loader = document.querySelector(".loading")
-const loadMoreButton = document.querySelector('loadmore')
+const loadMoreButton = document.querySelector('.loadmore')
+const link = document.querySelectorAll("a")
 
 // let userAPIKEY = `9f1dfce0c33d520203276ccf628a6c26`
 // let url =  `https://gateway.marvel.com/v1/public/characters`
@@ -18,26 +19,36 @@ const storedHeros = []
 
 let inputField = document.getElementById("userInput")
 
-if (localStorage.getItem('page1') === null){
+
+const app = {
+
+}
+//if (localStorage.getItem('page1') === null){
     apiCall().then(heroData => {
-        console.log('this is the data: ')
-        console.log(heroData.data)
         localStorage.setItem('page1', JSON.stringify(heroData.data.results))
         storedHeros.push(heroData)
         heroData.data.results.forEach((hero, index) => {
                 addDataToElement(hero, index,results)
         })   
     }) 
-} else heroData = JSON.parse(localStorage.getItem('page1')).then(heroData => {
-    heroData.forEach((hero, index) => {
-        addDataToElement(hero, index, results)
-}) 
+// } else heroData1 = JSON.parse(localStorage.getItem('page1'))
+    // console.log(heroData1)
+// .then(heroData => {
+//     heroData.forEach((hero, index) => {
+//         addDataToElement(hero, index, results)
+// }) 
+//}
+link.addEventListener('click', (e) => {
+    e.preventDefault()
 })
-loadMoreButton.addEventListener('click', loadMore().then(heroData =>{
+loadMoreButton.addEventListener('click', () => {
+    loadMore().then(heroData =>{
+    console.log(heroData.data)
     heroData.data.results.forEach((hero, index) => {
         addDataToElement(hero, index,results)
-})   
-}))
+        })
+    })   
+})
 // fetch(`${url}${params}`)
 //     .then((res) => {
 //         console.log(res)
