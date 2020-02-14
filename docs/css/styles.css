@@ -59,15 +59,21 @@ img {
 }
 .results {
   display: flex;
+  flex-wrap: wrap;
+  max-width: 100%;
   
 }
 .results div{
   padding: 0 1.5rem 0;
+  width: 10em;
 }
 .results img {
   background-size: contain;
   height: 6em;
   width: 6em;
+}
+.block{
+  display: block;
 }
 .button {
   background: var(--light);
@@ -75,9 +81,6 @@ img {
   padding: 1em;
 }
 
-.examples img {
-  max-width: 25vh;
-}
 .loading {
   position: absolute;
   top: 49%;

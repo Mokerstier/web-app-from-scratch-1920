@@ -1,5 +1,6 @@
 import commonjs from '@rollup/plugin-commonjs'
 import resolve from '@rollup/plugin-node-resolve'
+import serve from 'rollup-plugin-serve'
 
 export default {
     input: 'dev/js/app.js',
@@ -13,6 +14,7 @@ export default {
             main: true,
             browser: true
         }),
-        commonjs()
+        commonjs(),
+        serve ( 'docs')
     ]
 }

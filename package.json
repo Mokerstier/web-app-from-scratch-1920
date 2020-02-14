@@ -12,7 +12,8 @@
   "devDependencies": {
     "@rollup/plugin-commonjs": "^11.0.2",
     "@rollup/plugin-node-resolve": "^7.1.1",
-    "rollup": "^1.31.0"
+    "rollup": "^1.31.0",
+    "rollup-plugin-serve": "^1.0.1"
   },
   "scripts": {
     "start": "rollup -cw"
