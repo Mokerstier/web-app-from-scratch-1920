@@ -1,6 +1,7 @@
 import { apiCall } from './modules/marvelCall'
 import { addDataToElement } from './modules/displayHero'
 import { loadMore } from './modules/marvelCall'
+import { Routie } from './routing/routie'
 
 const results = document.querySelector(".results")
 const loader = document.querySelector(".loading")
@@ -20,9 +21,14 @@ const storedHeros = []
 let inputField = document.getElementById("userInput")
 
 
-const app = {
+// Routie ({
+//     ':id': function() {
+//         console.log(id)
+// 	},
+// 	'about': function() {
+// 	}
+// })
 
-}
 //if (localStorage.getItem('page1') === null){
     apiCall().then(heroData => {
         localStorage.setItem('page1', JSON.stringify(heroData.data.results))

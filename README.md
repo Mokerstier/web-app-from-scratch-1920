@@ -21,7 +21,7 @@ In this web-App users can assemble a team of superheros to their personal liking
     - Routing to detail or personal pages
 
  ![Actor Diagram](https://github.com/Mokerstier/web-app-from-scratch-1920/blob/dev/diagrams/ActorDiagram.png)
-### 
+### Interaction Diagram
 ![Interaction Diagram](https://github.com/Mokerstier/web-app-from-scratch-1920/blob/dev/diagrams/InteractionDiagram.png)
 
 ### API information 🐒
