@@ -1,9 +1,11 @@
 
+
 // Create elements for the results
   export function addDataToElement(hero, index, element){
       // Create add to Team button
       const key = hero.name + index
       let heroLink = document.createElement("a")
+      
       heroLink.href = `#${hero.id}`
       let heroThumb = hero.thumbnail
       let addButton = document.createElement("button")

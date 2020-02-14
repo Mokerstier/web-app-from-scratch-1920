@@ -38,9 +38,7 @@ const app = {
 //         addDataToElement(hero, index, results)
 // }) 
 //}
-link.addEventListener('click', (e) => {
-    e.preventDefault()
-})
+
 loadMoreButton.addEventListener('click', () => {
     loadMore().then(heroData =>{
     console.log(heroData.data)
