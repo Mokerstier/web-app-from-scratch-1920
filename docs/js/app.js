@@ -62,7 +62,11 @@
   function createElement(tag, { options, children }) {
       const element = document.createElement(tag);
       
-      if (options.classNames) ;
+      if (options.classNames) {
+          options.classNames.forEach(className =>{
+              element.classList.add(className);
+          });
+      }
       if (options.text) {
         element.innerText = options.text;
       }
@@ -76,6 +80,14 @@
       }
       return element
     }
+
+  function filterImg(heroes){
+      return heroes.filter(hero => hero.thumbnail.path !== 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available' && hero.thumbnail.path !== 'http://i.annihil.us/u/prod/marvel/i/mg/f/60/4c002e0305708')
+  }
+  function filterDesc(heroes){
+      return heroes.filter(hero => hero.description !== '')
+  }
+  // console.log( hero.filter(filterImg))
 
   // Create elements for the results
     function HerosOverview(hero, index, element){
@@ -115,19 +127,20 @@
     }
 
     function heroDetail(hero, element){
-      element.classList.toggle('overview');
+      element.classList.remove('overview');
       
-      let heroThumb = hero.thumbnail;
-      let imgUrl = `${heroThumb.path}.${heroThumb.extension}`;
-      let heroImg = createElement('img', { options: { src: imgUrl } });
+      const heroThumb = hero.thumbnail;
+      const imgUrl = `${heroThumb.path}.${heroThumb.extension}`;
+      const heroImg = createElement('img', { options: { src: imgUrl } });
+      const heroTitle = createElement('h3', {options: {classNames: ['herotitle'], text: hero.name}});
 
-      let heroDescription = createElement('p', {options: {
+      const heroDescription = createElement('p', {options: {
         text: hero.description || 'No description found'
       }});
 
-      let heroDetailCard = createElement('article', {
-        options: {}, 
-        children: [heroImg, heroDescription]
+      const heroDetailCard = createElement('article', {
+        options: {classNames:['herodetail']}, 
+        children: [heroImg, heroTitle, heroDescription]
       });
    
 
@@ -139,23 +152,31 @@
       
         .then( data =>{
           console.log(data);
-          let comicContainer = document.createElement('section');
-          comicContainer.classList.add("comics");
-          data.forEach(comic => {
-            let comicCard = document.createElement('div');
-            let comicTitle = document.createElement('p');
-            comicTitle.innerText = comic.title;
-            let comicImg = document.createElement('img');
-            if (comic.images.length == 0){
-              comicImg.alt = 'No img available';
-            } else{
-              comicImg.src = `${comic.images[0].path}.${comic.images[0].extension}`;
-            }
-            
+          const filterdImg = filterImg(data);
+          console.log(filterdImg);
+          filterdImg.forEach(comic => {
+            const imgUrl = `${comic.images[0].path}.${comic.images[0].extension}`;
+            const comicImg = createElement('img',{
+              options:{
+                src: imgUrl || 'No img available'
+              }
+            });
+            const comicTitle = createElement('p', {
+              options: {
+                text:  comic.title
+              }
+            });
+            const comicCard = createElement('div',{
+              options:{},
+              children: [comicTitle, comicImg]
+            });
+            const comicContainer = createElement('section',{
+              options:{
+                classNames: ['comics']
+              },
+              children: [comicCard]
+            });
 
-            comicCard.appendChild(comicTitle);
-            comicCard.appendChild(comicImg);
-            comicContainer.appendChild(comicCard);
             element.appendChild(comicContainer);
             
           });
@@ -400,8 +421,12 @@
           loader.classList.toggle('hide');
           results.innerHTML = ''; // Clear the page!
           apiCall().then(heroData => {
+             
+              const filteredImg = filterImg(heroData.data.results);
+              const filteredDesc = filterDesc(filteredImg);
+              console.log(filteredDesc);
               loader.classList.toggle('hide');
-              heroData.data.results.forEach((hero, index) => {
+              filteredDesc.forEach((hero, index) => {
                       
                       HerosOverview(hero, index,results);
               });   

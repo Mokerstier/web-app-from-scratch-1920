@@ -3,7 +3,9 @@ import { loadMore } from './modules/marvelCall'
 import { heroCall } from './modules/marvelCall'
 import { HerosOverview } from './modules/render'
 import { heroDetail } from './modules/render'
+import {filterImg, filterDesc} from './modules/data'
 import Routie from './routing/routie'
+import { filterHero } from './modules/data'
 
 const results = document.querySelector(".results")
 const loader = document.querySelector(".loading")
@@ -28,8 +30,12 @@ Routie ({
         loader.classList.toggle('hide')
         results.innerHTML = '' // Clear the page!
         apiCall().then(heroData => {
+           
+            const filteredImg = filterImg(heroData.data.results)
+            const filteredDesc = filterDesc(filteredImg)
+            console.log(filteredDesc)
             loader.classList.toggle('hide')
-            heroData.data.results.forEach((hero, index) => {
+            filteredDesc.forEach((hero, index) => {
                     
                     HerosOverview(hero, index,results)
             })   
