@@ -2,69 +2,177 @@
   'use strict';
 
   const userAPIKEY = `9f1dfce0c33d520203276ccf628a6c26`;
-  const url =  `https://gateway.marvel.com/v1/public/characters?`;
-  const params = `apikey=${userAPIKEY}`;
+  const url =  `https://gateway.marvel.com/v1/public/characters`;
+  const params = `limit=100&apikey=${userAPIKEY}`;
   let offsetVal = 0;
 
 
-  function apiCall() {
-    return new Promise((resolve, reject) => {
-      fetch(`${url}${params}`)
-      .then((res) => {
-          resolve(res.json());
-      });
-    })
+  // export function apiCall() {
+  //   return new Promise((resolve, reject) => {
+  //     fetch(`${url}?${params}`)
+  //     .then((res) => {
+  //         resolve(res.json())
+  //     })
+  //   })
+  // }
+
+  async function apiCall() {
+    const response = await fetch(`${url}?${params}`);
+    const data = await response.json();
+
+    return data
   }
+
+  // export function heroCall(id) {
+  //   return new Promise((resolve, reject) => {
+  //     fetch(`${url}/${id}?${params}`)
+  //     .then((res) =>{
+  //       return res.json()
+  //     })
+  //     .then(data => {
+  //       console.log(data.data.results)
+  //     })
+  //   })
+  // }
+
+  async function heroCall(id) {
+    const response = await fetch(`${url}/${id}?${params}`);
+    const data = await response.json();
+
+    return data.data.results[0]
+  }
+
+  async function heroComics(id){
+    const response = await fetch(`${url}/${id}/comics?${params}`);
+    const data = await response.json();
+    
+    return data.data.results
+  }
+
   function loadMore(){
-    offsetVal+=20;
+    offsetVal+=100;
     return new Promise((resolve, reject) => {
-      fetch(`${url}offset=${offsetVal}&${params}`)
+      fetch(`${url}?offset=${offsetVal}&${params}`)
       .then((res) => {
           resolve(res.json());
       });
     })
   }
 
+  function createElement(tag, { options, children }) {
+      const element = document.createElement(tag);
+      
+      if (options.classNames) ;
+      if (options.text) {
+        element.innerText = options.text;
+      }
+      if (options.src){
+        element.setAttribute('src', options.src);
+      }
+      if (children){
+        children.forEach(child => {
+          element.appendChild(child);
+        });
+      }
+      return element
+    }
+
   // Create elements for the results
-    function addDataToElement(hero, index, element){
+    function HerosOverview(hero, index, element){
         // Create add to Team button
+        element.classList.add('overview');
         const key = hero.name + index;
         let heroLink = document.createElement("a");
         
         heroLink.href = `#${hero.id}`;
         let heroThumb = hero.thumbnail;
         let addButton = document.createElement("button");
+        
         addButton.classList.add('block');
         addButton.setAttribute('data-key', key);
         addButton.innerText = `Add ${hero.name} to the team`;
-
+        let cardBody = document.createElement('div');
+        cardBody.classList.add('card-body');
         let container = document.createElement("div");
 
         // Create Hero nameTitle
-        let nameTitle = document.createElement("h3");
+        let nameTitle = document.createElement("p");
         nameTitle.innerText = hero.name;
         // Create Hero IMG
         let heroImage = document.createElement("img");
+        if (heroThumb.path == 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available'){
+          heroImage.classList.add('offset');
+        }
         heroImage.src =  `${heroThumb.path}.${heroThumb.extension}`;
 
-        container.appendChild(nameTitle);
         container.appendChild(heroImage);
-        container.appendChild(addButton);
+        cardBody.appendChild(nameTitle);
+        cardBody.appendChild(addButton);
+        container.appendChild(cardBody);
         heroLink.appendChild(container);
         element.appendChild(heroLink);
 
-      //   container.addEventListener("click", function (e){
-      //       const { target } = e
-      //       const dataKey = target.getAttribute('data-key')
+    }
 
-      //       console.log(dataKey)
+    function heroDetail(hero, element){
+      element.classList.toggle('overview');
+      
+      let heroThumb = hero.thumbnail;
+      let imgUrl = `${heroThumb.path}.${heroThumb.extension}`;
+      let heroImg = createElement('img', { options: { src: imgUrl } });
 
-      //       if (dataKey === key){
-      //           myHeros.push(hero)
-      //           console.log(myHeros)
-      //           localStorage.setItem('myHeros', JSON.stringify(hero));
-      //       }
-      //   }) 
+      let heroDescription = createElement('p', {options: {
+        text: hero.description || 'No description found'
+      }});
+
+      let heroDetailCard = createElement('article', {
+        options: {}, 
+        children: [heroImg, heroDescription]
+      });
+
+
+
+
+      // if (hero.description == ''){
+      //   heroDescription.innerText = 'No description available'
+      // } else {
+      //   heroDescription.innerText = hero.description
+      // }
+
+      // heroDetailCard.appendChild(heroImg)
+      // heroDetailCard.appendChild(heroDescription)
+
+
+      element.appendChild(heroDetailCard);
+
+      //This hero appears in the following comics
+      heroComics(hero.id)
+      
+        .then( data =>{
+          console.log(data);
+          let comicContainer = document.createElement('section');
+          comicContainer.classList.add("comics");
+          data.forEach(comic => {
+            let comicCard = document.createElement('div');
+            let comicTitle = document.createElement('p');
+            comicTitle.innerText = comic.title;
+            let comicImg = document.createElement('img');
+            if (comic.images.length == 0){
+              comicImg.alt = 'No img available';
+            } else{
+              comicImg.src = `${comic.images[0].path}.${comic.images[0].extension}`;
+            }
+            
+
+            comicCard.appendChild(comicTitle);
+            comicCard.appendChild(comicImg);
+            comicContainer.appendChild(comicCard);
+            element.appendChild(comicContainer);
+            
+          });
+          
+        });
+      
     }
 
   function createCommonjsModule(fn, module) {
@@ -298,21 +406,33 @@
   let inputField = document.getElementById("userInput");
 
 
-  // Routie ({
-  //     ':id': function() {
-  //         console.log(id)
-  // 	},
-  // 	'about': function() {
-  // 	}
-  // })
+  routie ({
+      '': function() {
+          loader.classList.toggle('hide');
+          results.innerHTML = ''; // Clear the page!
+          apiCall().then(heroData => {
+              loader.classList.toggle('hide');
+              heroData.data.results.forEach((hero, index) => {
+                      
+                      HerosOverview(hero, index,results);
+              });   
+          }); 
+      },
+      ':id': function(id) {
+          results.innerHTML = '';
+          
+          heroCall(id)
+          .then(data => {  
+                     
+              heroDetail(data, results);
+          });
+  	},
+  	'about': function() {
+  	}
+  });
 
   //if (localStorage.getItem('page1') === null){
-      apiCall().then(heroData => {
-          localStorage.setItem('page1', JSON.stringify(heroData.data.results));
-          heroData.data.results.forEach((hero, index) => {
-                  addDataToElement(hero, index,results);
-          });   
-      }); 
+
   // } else heroData1 = JSON.parse(localStorage.getItem('page1'))
       // console.log(heroData1)
   // .then(heroData => {
@@ -325,7 +445,7 @@
       loadMore().then(heroData =>{
       console.log(heroData.data);
       heroData.data.results.forEach((hero, index) => {
-          addDataToElement(hero, index,results);
+          HerosOverview(hero, index,results);
           });
       });   
   });

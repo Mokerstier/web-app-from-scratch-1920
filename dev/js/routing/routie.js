@@ -216,3 +216,4 @@ var Routie = function(w, isModule) {
   } else {
     module.exports = Routie(window,true);
   }
+  

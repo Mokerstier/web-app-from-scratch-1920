@@ -1,7 +1,9 @@
 import { apiCall } from './modules/marvelCall'
-import { addDataToElement } from './modules/displayHero'
 import { loadMore } from './modules/marvelCall'
-import { Routie } from './routing/routie'
+import { heroCall } from './modules/marvelCall'
+import { HerosOverview } from './modules/render'
+import { heroDetail } from './modules/render'
+import Routie from './routing/routie'
 
 const results = document.querySelector(".results")
 const loader = document.querySelector(".loading")
@@ -21,22 +23,33 @@ const storedHeros = []
 let inputField = document.getElementById("userInput")
 
 
-// Routie ({
-//     ':id': function() {
-//         console.log(id)
-// 	},
-// 	'about': function() {
-// 	}
-// })
+Routie ({
+    '': function() {
+        loader.classList.toggle('hide')
+        results.innerHTML = '' // Clear the page!
+        apiCall().then(heroData => {
+            loader.classList.toggle('hide')
+            heroData.data.results.forEach((hero, index) => {
+                    
+                    HerosOverview(hero, index,results)
+            })   
+        }) 
+    },
+    ':id': function(id) {
+        results.innerHTML = ''
+        
+        heroCall(id)
+        .then(data => {  
+                   
+            heroDetail(data, results)
+        })
+	},
+	'about': function() {
+	}
+})
 
 //if (localStorage.getItem('page1') === null){
-    apiCall().then(heroData => {
-        localStorage.setItem('page1', JSON.stringify(heroData.data.results))
-        storedHeros.push(heroData)
-        heroData.data.results.forEach((hero, index) => {
-                addDataToElement(hero, index,results)
-        })   
-    }) 
+
 // } else heroData1 = JSON.parse(localStorage.getItem('page1'))
     // console.log(heroData1)
 // .then(heroData => {
@@ -49,7 +62,7 @@ loadMoreButton.addEventListener('click', () => {
     loadMore().then(heroData =>{
     console.log(heroData.data)
     heroData.data.results.forEach((hero, index) => {
-        addDataToElement(hero, index,results)
+        HerosOverview(hero, index,results)
         })
     })   
 })
