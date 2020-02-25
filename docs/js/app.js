@@ -129,18 +129,7 @@
         options: {}, 
         children: [heroImg, heroDescription]
       });
-
-
-
-
-      // if (hero.description == ''){
-      //   heroDescription.innerText = 'No description available'
-      // } else {
-      //   heroDescription.innerText = hero.description
-      // }
-
-      // heroDetailCard.appendChild(heroImg)
-      // heroDetailCard.appendChild(heroDescription)
+   
 
 
       element.appendChild(heroDetailCard);
