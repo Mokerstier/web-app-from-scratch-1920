@@ -4,15 +4,6 @@ const params = `limit=100&apikey=${userAPIKEY}`
 let offsetVal = 0;
 
 
-// export function apiCall() {
-//   return new Promise((resolve, reject) => {
-//     fetch(`${url}?${params}`)
-//     .then((res) => {
-//         resolve(res.json())
-//     })
-//   })
-// }
-
 export async function apiCall() {
   const response = await fetch(`${url}?${params}`)
   const data = await response.json()
@@ -20,17 +11,6 @@ export async function apiCall() {
   return data
 }
 
-// export function heroCall(id) {
-//   return new Promise((resolve, reject) => {
-//     fetch(`${url}/${id}?${params}`)
-//     .then((res) =>{
-//       return res.json()
-//     })
-//     .then(data => {
-//       console.log(data.data.results)
-//     })
-//   })
-// }
 
 export async function heroCall(id) {
   const response = await fetch(`${url}/${id}?${params}`)
