@@ -4,4 +4,3 @@ export function filterImg(heroes){
 export function filterDesc(heroes){
     return heroes.filter(hero => hero.description !== '')
 }
-// console.log( hero.filter(filterImg))

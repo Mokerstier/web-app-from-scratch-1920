@@ -67,7 +67,6 @@
   function filterDesc(heroes){
       return heroes.filter(hero => hero.description !== '')
   }
-  // console.log( hero.filter(filterImg))
 
   // Create elements for the results
     function HerosOverview(hero, index, element){
@@ -177,14 +176,14 @@
    * copyright Greg Allen 2016
    * MIT License
   */
-  var Routie = function(w, isModule) {
+  const Routie = function(w, isModule) {
 
-      var routes = [];
-      var map = {};
-      var reference = "routie";
-      var oldReference = w[reference];
+      const routes = [];
+      const map = {};
+      const reference = "routie";
+      const oldReference = w[reference];
     
-      var Route = function(path, name) {
+      const Route = function(path, name) {
         this.name = name;
         this.path = path;
         this.keys = [];
@@ -199,8 +198,8 @@
       };
     
       Route.prototype.removeHandler = function(fn) {
-        for (var i = 0, c = this.fns.length; i < c; i++) {
-          var f = this.fns[i];
+        for (const i = 0, c = this.fns.length; i < c; i++) {
+          const f = this.fns[i];
           if (fn == f) {
             this.fns.splice(i, 1);
             return;
@@ -209,21 +208,21 @@
       };
     
       Route.prototype.run = function(params) {
-        for (var i = 0, c = this.fns.length; i < c; i++) {
+        for (const i = 0, c = this.fns.length; i < c; i++) {
           this.fns[i].apply(this, params);
         }
       };
     
       Route.prototype.match = function(path, params){
-        var m = this.regex.exec(path);
+        const m = this.regex.exec(path);
     
         if (!m) return false;
     
     
-        for (var i = 1, len = m.length; i < len; ++i) {
-          var key = this.keys[i - 1];
+        for (const i = 1, len = m.length; i < len; ++i) {
+          const key = this.keys[i - 1];
     
-          var val = ('string' == typeof m[i]) ? decodeURIComponent(m[i]) : m[i];
+          const val = ('string' == typeof m[i]) ? decodeURIComponent(m[i]) : m[i];
     
           if (key) {
             this.params[key.name] = val;
@@ -235,8 +234,8 @@
       };
     
       Route.prototype.toURL = function(params) {
-        var path = this.path;
-        for (var param in params) {
+        const path = this.path;
+        for (const param in params) {
           path = path.replace('/:'+param, '/'+params[param]);
         }
         path = path.replace(/\/:.*\?/g, '/').replace(/\?/g, '');
@@ -246,7 +245,7 @@
         return path;
       };
     
-      var pathToRegexp = function(path, keys, sensitive, strict) {
+      const pathToRegexp = function(path, keys, sensitive, strict) {
         if (path instanceof RegExp) return path;
         if (path instanceof Array) path = '(' + path.join('|') + ')';
         path = path
@@ -264,9 +263,9 @@
         return new RegExp('^' + path + '$', sensitive ? '' : 'i');
       };
     
-      var addHandler = function(path, fn) {
-        var s = path.split(' ');
-        var name = (s.length == 2) ? s[0] : null;
+      const addHandler = function(path, fn) {
+        const s = path.split(' ');
+        const name = (s.length == 2) ? s[0] : null;
         path = (s.length == 2) ? s[1] : s[0];
     
         if (!map[path]) {
@@ -276,12 +275,12 @@
         map[path].addHandler(fn);
       };
     
-      var routie = function(path, fn) {
+      const routie = function(path, fn) {
         if (typeof fn == 'function') {
           addHandler(path, fn);
           routie.reload();
         } else if (typeof path == 'object') {
-          for (var p in path) {
+          for (const p in path) {
             addHandler(p, path[p]);
           }
           routie.reload();
@@ -291,8 +290,8 @@
       };
     
       routie.lookup = function(name, obj) {
-        for (var i = 0, c = routes.length; i < c; i++) {
-          var route = routes[i];
+        for (const i = 0, c = routes.length; i < c; i++) {
+          const route = routes[i];
           if (route.name == name) {
             return route.toURL(obj);
           }
@@ -300,7 +299,7 @@
       };
     
       routie.remove = function(path, fn) {
-        var route = map[path];
+        const route = map[path];
         if (!route)
           return;
         route.removeHandler(fn);
@@ -313,7 +312,7 @@
     
       routie.navigate = function(path, options) {
         options = options || {};
-        var silent = options.silent || false;
+        const silent = options.silent || false;
     
         if (silent) {
           removeListener();
@@ -335,12 +334,12 @@
         return routie;
       };
     
-      var getHash = function() {
+      const getHash = function() {
         return window.location.hash.substring(1);
       };
     
-      var checkRoute = function(hash, route) {
-        var params = [];
+      const checkRoute = function(hash, route) {
+        const params = [];
         if (route.match(hash, params)) {
           route.run(params);
           return true;
@@ -348,17 +347,17 @@
         return false;
       };
     
-      var hashChanged = routie.reload = function() {
-        var hash = getHash();
-        for (var i = 0, c = routes.length; i < c; i++) {
-          var route = routes[i];
+      const hashChanged = routie.reload = function() {
+        const hash = getHash();
+        for (const i = 0, c = routes.length; i < c; i++) {
+          const route = routes[i];
           if (checkRoute(hash, route)) {
             return;
           }
         }
       };
     
-      var addListener = function() {
+      const addListener = function() {
         if (w.addEventListener) {
           w.addEventListener('hashchange', hashChanged, false);
         } else {
@@ -366,7 +365,7 @@
         }
       };
     
-      var removeListener = function() {
+      const removeListener = function() {
         if (w.removeEventListener) {
           w.removeEventListener('hashchange', hashChanged);
         } else {
