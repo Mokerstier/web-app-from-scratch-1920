@@ -39,13 +39,46 @@ Routie ({
 	'about': function() {
 	}
 })
+// stole the debounce function from https://davidwalsh.name/javascript-debounce-function
+function debounce(func, wait, immediate) {
+	let timeout;
+	return function() {
+		const context = this, args = arguments;
+		const later = function() {
+			timeout = null;
+			if (!immediate) func.apply(context, args);
+		};
+		const callNow = immediate && !timeout;
+		clearTimeout(timeout);
+		timeout = setTimeout(later, wait);
+		if (callNow) func.apply(context, args);
+	};
+};
+// Stole this scroll function from https://stackoverflow.com/questions/9439725/javascript-how-to-detect-if-browser-window-is-scrolled-to-bottom#9439807
+const scrollPage = debounce(function(ev) {
+    if(window.location.hash === ''){
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
 
-
-loadMoreButton.addEventListener('click', () => {
-    loadMore().then(heroData =>{
-    console.log(heroData.data)
-    heroData.data.results.forEach((hero, index) => {
-        HerosOverview(hero, index,results)
-        })
-    })   
-})
+            loadMore().then(heroData =>{
+                console.log(heroData.data)
+                const filteredImg = filterImg(heroData.data.results)
+                const filteredDesc = filterDesc(filteredImg)
+                filteredDesc.forEach((hero, index) => {
+                    HerosOverview(hero, index,results)
+                    })
+                }) 
+        }
+    }
+}, 500);
+window.addEventListener('scroll', scrollPage);
+console.log(window.location.hash)
+// loadMoreButton.addEventListener('click', () => {
+//     loadMore().then(heroData =>{
+//     console.log(heroData.data)
+//     const filteredImg = filterImg(heroData.data.results)
+//     const filteredDesc = filterDesc(filteredImg)
+//     filteredDesc.forEach((hero, index) => {
+//         HerosOverview(hero, index,results)
+//         })
+//     })   
+// })

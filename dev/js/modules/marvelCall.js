@@ -28,11 +28,20 @@ export async function heroComics(id){
 
 export function loadMore(){
   offsetVal+=100
-  return new Promise((resolve, reject) => {
-    fetch(`${url}?offset=${offsetVal}&${params}`)
-    .then((res) => {
-        resolve(res.json())
+  if (offsetVal <= 1400){
+    return new Promise((resolve, reject) => {
+      const loader = document.querySelector('.loader2')
+      loader.classList.remove('hide')
+      fetch(`${url}?offset=${offsetVal}&${params}`)
+      .then((res) => {
+          resolve(res.json())
+          loader.classList.add('hide')
+      })
     })
-  })
+  } else{
+    const finalState = document.querySelector('h4')
+    finalState.classList.remove('hide')
+  }
+  
 }
 

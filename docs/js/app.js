@@ -31,12 +31,21 @@
 
   function loadMore(){
     offsetVal+=100;
-    return new Promise((resolve, reject) => {
-      fetch(`${url}?offset=${offsetVal}&${params}`)
-      .then((res) => {
-          resolve(res.json());
-      });
-    })
+    if (offsetVal <= 1400){
+      return new Promise((resolve, reject) => {
+        const loader = document.querySelector('.loader2');
+        loader.classList.remove('hide');
+        fetch(`${url}?offset=${offsetVal}&${params}`)
+        .then((res) => {
+            resolve(res.json());
+            loader.classList.add('hide');
+        });
+      })
+    } else{
+      const finalState = document.querySelector('h4');
+      finalState.classList.remove('hide');
+    }
+    
   }
 
   function createElement(tag, { options, children }) {
@@ -49,6 +58,9 @@
       }
       if (options.text) {
         element.innerText = options.text;
+      }
+      if (options.href){
+          element.setAttribute('href', options.href);
       }
       if (options.src){
         element.setAttribute('src', options.src);
@@ -68,39 +80,47 @@
       return heroes.filter(hero => hero.description !== '')
   }
 
+  function insertS(str, index, value) {
+    return str.substr(0, index) + value + str.substr(index);
+  }
+
   // Create elements for the results
     function HerosOverview(hero, index, element){
         // Create add to Team button
         element.classList.add('overview');
         const key = hero.name + index;
-        let heroLink = document.createElement("a");
+        //let heroLink = document.createElement("a")
+        const heroThumb = hero.thumbnail;
         
-        heroLink.href = `#${hero.id}`;
-        let heroThumb = hero.thumbnail;
+        const nameTitle = createElement("p", {
+          options: { text: hero.name }
+        });
+
+        const heroImg = createElement("img", {
+          options: { src: insertS(`${heroThumb.path}`, 4, 's')+`.${heroThumb.extension}` }
+        });
+
+        const cardBody = createElement('div', {
+          options: {classNames: ['card-body']},
+          children: [nameTitle ]
+        });
+        
+        const container = createElement('div', {
+          options:{}, 
+          children:[ heroImg, cardBody ]
+        });
+
+        const heroLink = createElement('a',{
+          options: { href:`#${hero.id}` },
+          children: [ container ]
+        });
+        //heroLink.href = `#${hero.id}`
+        
         let addButton = document.createElement("button");
         
         addButton.classList.add('block');
         addButton.setAttribute('data-key', key);
         addButton.innerText = `Add ${hero.name} to the team`;
-        let cardBody = document.createElement('div');
-        cardBody.classList.add('card-body');
-        let container = document.createElement("div");
-
-        // Create Hero nameTitle
-        let nameTitle = document.createElement("p");
-        nameTitle.innerText = hero.name;
-        // Create Hero IMG
-        let heroImage = document.createElement("img");
-        if (heroThumb.path == 'http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available'){
-          heroImage.classList.add('offset');
-        }
-        heroImage.src =  `${heroThumb.path}.${heroThumb.extension}`;
-
-        container.appendChild(heroImage);
-        cardBody.appendChild(nameTitle);
-        cardBody.appendChild(addButton);
-        container.appendChild(cardBody);
-        heroLink.appendChild(container);
         element.appendChild(heroLink);
 
     }
@@ -108,8 +128,11 @@
     function heroDetail(hero, element){
       element.classList.remove('overview');
       
+      
       const heroThumb = hero.thumbnail;
-      const imgUrl = `${heroThumb.path}.${heroThumb.extension}`;
+      insertS(`${heroThumb.path}`, 4, 's');
+
+      const imgUrl = insertS(`${heroThumb.path}`, 4, 's')+`.${heroThumb.extension}`;
       const heroImg = createElement('img', { options: { src: imgUrl } });
       const heroTitle = createElement('h3', {options: {classNames: ['herotitle'], text: hero.name}});
 
@@ -198,7 +221,7 @@
       };
     
       Route.prototype.removeHandler = function(fn) {
-        for (const i = 0, c = this.fns.length; i < c; i++) {
+        for (let i = 0, c = this.fns.length; i < c; i++) {
           const f = this.fns[i];
           if (fn == f) {
             this.fns.splice(i, 1);
@@ -208,7 +231,7 @@
       };
     
       Route.prototype.run = function(params) {
-        for (const i = 0, c = this.fns.length; i < c; i++) {
+        for (let i = 0, c = this.fns.length; i < c; i++) {
           this.fns[i].apply(this, params);
         }
       };
@@ -219,7 +242,7 @@
         if (!m) return false;
     
     
-        for (const i = 1, len = m.length; i < len; ++i) {
+        for (let i = 1, len = m.length; i < len; ++i) {
           const key = this.keys[i - 1];
     
           const val = ('string' == typeof m[i]) ? decodeURIComponent(m[i]) : m[i];
@@ -290,7 +313,7 @@
       };
     
       routie.lookup = function(name, obj) {
-        for (const i = 0, c = routes.length; i < c; i++) {
+        for (let i = 0, c = routes.length; i < c; i++) {
           const route = routes[i];
           if (route.name == name) {
             return route.toURL(obj);
@@ -349,7 +372,7 @@
     
       const hashChanged = routie.reload = function() {
         const hash = getHash();
-        for (const i = 0, c = routes.length; i < c; i++) {
+        for (let i = 0, c = routes.length; i < c; i++) {
           const route = routes[i];
           if (checkRoute(hash, route)) {
             return;
@@ -420,15 +443,47 @@
   	'about': function() {
   	}
   });
+  // stole the debounce function from https://davidwalsh.name/javascript-debounce-function
+  function debounce(func, wait, immediate) {
+  	let timeout;
+  	return function() {
+  		const context = this, args = arguments;
+  		const later = function() {
+  			timeout = null;
+  			if (!immediate) func.apply(context, args);
+  		};
+  		const callNow = immediate && !timeout;
+  		clearTimeout(timeout);
+  		timeout = setTimeout(later, wait);
+  		if (callNow) func.apply(context, args);
+  	};
+  }// Stole this scroll function from https://stackoverflow.com/questions/9439725/javascript-how-to-detect-if-browser-window-is-scrolled-to-bottom#9439807
+  const scrollPage = debounce(function(ev) {
+      if(window.location.hash === ''){
+          if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
 
-
-  loadMoreButton.addEventListener('click', () => {
-      loadMore().then(heroData =>{
-      console.log(heroData.data);
-      heroData.data.results.forEach((hero, index) => {
-          HerosOverview(hero, index,results);
-          });
-      });   
-  });
+              loadMore().then(heroData =>{
+                  console.log(heroData.data);
+                  const filteredImg = filterImg(heroData.data.results);
+                  const filteredDesc = filterDesc(filteredImg);
+                  filteredDesc.forEach((hero, index) => {
+                      HerosOverview(hero, index,results);
+                      });
+                  }); 
+          }
+      }
+  }, 500);
+  window.addEventListener('scroll', scrollPage);
+  console.log(window.location.hash);
+  // loadMoreButton.addEventListener('click', () => {
+  //     loadMore().then(heroData =>{
+  //     console.log(heroData.data)
+  //     const filteredImg = filterImg(heroData.data.results)
+  //     const filteredDesc = filterDesc(filteredImg)
+  //     filteredDesc.forEach((hero, index) => {
+  //         HerosOverview(hero, index,results)
+  //         })
+  //     })   
+  // })
 
 }());

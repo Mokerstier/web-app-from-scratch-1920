@@ -27,7 +27,7 @@ const Routie = function(w, isModule) {
     };
   
     Route.prototype.removeHandler = function(fn) {
-      for (const i = 0, c = this.fns.length; i < c; i++) {
+      for (let i = 0, c = this.fns.length; i < c; i++) {
         const f = this.fns[i];
         if (fn == f) {
           this.fns.splice(i, 1);
@@ -37,7 +37,7 @@ const Routie = function(w, isModule) {
     };
   
     Route.prototype.run = function(params) {
-      for (const i = 0, c = this.fns.length; i < c; i++) {
+      for (let i = 0, c = this.fns.length; i < c; i++) {
         this.fns[i].apply(this, params);
       }
     };
@@ -48,7 +48,7 @@ const Routie = function(w, isModule) {
       if (!m) return false;
   
   
-      for (const i = 1, len = m.length; i < len; ++i) {
+      for (let i = 1, len = m.length; i < len; ++i) {
         const key = this.keys[i - 1];
   
         const val = ('string' == typeof m[i]) ? decodeURIComponent(m[i]) : m[i];
@@ -119,7 +119,7 @@ const Routie = function(w, isModule) {
     };
   
     routie.lookup = function(name, obj) {
-      for (const i = 0, c = routes.length; i < c; i++) {
+      for (let i = 0, c = routes.length; i < c; i++) {
         const route = routes[i];
         if (route.name == name) {
           return route.toURL(obj);
@@ -178,7 +178,7 @@ const Routie = function(w, isModule) {
   
     const hashChanged = routie.reload = function() {
       const hash = getHash();
-      for (const i = 0, c = routes.length; i < c; i++) {
+      for (let i = 0, c = routes.length; i < c; i++) {
         const route = routes[i];
         if (checkRoute(hash, route)) {
           return;

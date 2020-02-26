@@ -9,6 +9,9 @@ export function createElement(tag, { options, children }) {
     if (options.text) {
       element.innerText = options.text
     }
+    if (options.href){
+        element.setAttribute('href', options.href)
+    }
     if (options.src){
       element.setAttribute('src', options.src)
     }

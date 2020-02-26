@@ -173,7 +173,10 @@ div:hover .card-body:before{
   top: 49%;
   left: 45%;
 }
-
+.loader2{
+  display: block;
+  margin: auto;
+}
 .hide {
   display: none;
 }
