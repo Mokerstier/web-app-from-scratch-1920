@@ -31,8 +31,17 @@ In this web-App users can assemble a team of superheros to their personal liking
     - Rate limits are set to 3000 requests a day
 - Attribution
     - Every page within the app or web pages that display data from the API must add the following text: "Data provided by Marvel. © 2014 Marvel"
-
-
+- Endpoints
+  - Marvel API has a lot of endpoints available based on 7 subjecst:
+    1. Comics
+    2. Comic series
+    3. Comic stories
+    4. Comic events and crossovers
+    6. Creators
+    7. Characters
+   - for more information on these subjects https://developer.marvel.com/documentation/generalinfo
+  - possible enpoints will look like this`/v1/public/characters`, `/v1/public/characters/{characterId}` & `/v1/public/characters/{characterId}/comics`
+  - For a full list and data objects returned for each endpoint check https://developer.marvel.com/docs
 
 <!-- Add a link to your live demo in Github Pages 🌐-->
 
