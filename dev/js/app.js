@@ -36,7 +36,8 @@ Routie ({
             heroDetail(data, results)
         })
 	},
-	'about': function() {
+	'myHeroes': function() {
+        heroDetail(data, results)
 	}
 })
 // stole the debounce function from https://davidwalsh.name/javascript-debounce-function
@@ -71,14 +72,4 @@ const scrollPage = debounce(function(ev) {
     }
 }, 500);
 window.addEventListener('scroll', scrollPage);
-console.log(window.location.hash)
-// loadMoreButton.addEventListener('click', () => {
-//     loadMore().then(heroData =>{
-//     console.log(heroData.data)
-//     const filteredImg = filterImg(heroData.data.results)
-//     const filteredDesc = filterDesc(filteredImg)
-//     filteredDesc.forEach((hero, index) => {
-//         HerosOverview(hero, index,results)
-//         })
-//     })   
-// })
+
