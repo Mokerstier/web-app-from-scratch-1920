@@ -3,7 +3,7 @@ import { loadMore } from './modules/marvelCall'
 import { heroCall } from './modules/marvelCall'
 import { HerosOverview } from './modules/render'
 import { heroDetail } from './modules/render'
-import {filterImg, filterDesc} from './modules/data'
+import {filterImg, filterDesc} from './modules/filter'
 import Routie from './routing/routie'
 
 const results = document.querySelector(".results")

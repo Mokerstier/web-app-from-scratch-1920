@@ -1,6 +1,6 @@
 import { heroComics } from "./marvelCall"
 import { createElement } from './template'
-import { filterImg } from "./data"
+import { filterImg } from "./filter"
 
 function insertS(str, index, value) {
   return str.substr(0, index) + value + str.substr(index);
