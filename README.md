@@ -13,15 +13,17 @@ In this web-App users can assemble a team of superheros to their personal liking
  1 Purpose of the app
     - An app that lets users compile a team of superhero's to their personal liking
  2 Functionalities within the app
-    -[x] App conects to Marvel-API
-    -[x] App requests data and stores the result
-    -[x] App generates HTML to visualize the data from the API
-    -[ ] User can assemble a team of hero's from the generated pages and store them local
-    -[ ] Routing to detail or personal pages
+   - [x] App conects to Marvel-API
+   - [x] App requests data and stores the result
+   - [x] App generates HTML to visualize the data from the API
+   - [ ] User can assemble a team of hero's from the generated pages and store them local
+   - [ ] Routing to detail or personal pages
 
- ![Actor Diagram](https://github.com/Mokerstier/web-app-from-scratch-1920/blob/dev/diagrams/ActorDiagram.png)
-### Interaction Diagram
-![Interaction Diagram](https://github.com/Mokerstier/web-app-from-scratch-1920/blob/dev/diagrams/InteractionDiagram.png)
+ ![Actor Diagram](https://github.com/Mokerstier/web-app-from-scratch-1920/blob/master/diagrams/Actor.png?raw=true)
+### Interaction Overview-page (home) Diagram
+![Interaction Overview Diagram](https://github.com/Mokerstier/web-app-from-scratch-1920/blob/master/diagrams/Overview.png?raw=true)
+### Interaction Detail-page Diagram
+![Interaction Detail](https://github.com/Mokerstier/web-app-from-scratch-1920/blob/master/diagrams/Detail.png?raw=true)
 
 ### API information 🐒
 - Get a key!
